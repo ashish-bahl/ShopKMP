@@ -1,5 +1,6 @@
 package org.example.project.presentation.productlist
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,7 +25,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import org.example.project.presentation.navigation.LocalUIDeviceSize
 import org.example.project.presentation.navigation.NavigationRoutes
+import org.example.project.presentation.utils.DeviceType
 import org.example.project.presentation.utils.ProductListingCard
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -40,16 +43,19 @@ fun ProductListingScreen(
     val productListingViewModel = koinViewModel<ProductListingViewModel>()
 
     val state by productListingViewModel.productListingUiState.collectAsStateWithLifecycle()
-//    val deviceType = LocalUIDeviceSize.current
+    val deviceType = LocalUIDeviceSize.current
 
-    val columns = 2 /*when (deviceType) {
+    val columns = when (deviceType) {
         DeviceType.MOBILE_PORTRAIT -> 2
         DeviceType.MOBILE_LANDSCAPE -> 3
         DeviceType.TABLET_PORTRAIT -> 3
         DeviceType.TABLET_LANDSCAPE -> 4
-    }*/
+    }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier.fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.background)
+    ) {
         Column(
             modifier = Modifier.fillMaxWidth()
         ) {

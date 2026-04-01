@@ -1,6 +1,7 @@
 package org.example.project.presentation.productdetails
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
@@ -11,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Card
@@ -31,6 +34,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import org.example.project.domain.model.Product
+import org.example.project.presentation.navigation.LocalUIDeviceSize
+import org.example.project.presentation.utils.DeviceType
 import org.example.project.presentation.utils.QuantityStepper
 import org.example.project.presentation.utils.prependRupeeSymbol
 import org.jetbrains.compose.resources.painterResource
@@ -69,80 +74,71 @@ fun ProductDetailsView(
     addToCartClick: (Product) -> Unit,
     onQuantityChange: (Int) -> Unit
 ) {
-//    val deviceSize = LocalUIDeviceSize.current
-//    val scrollState = rememberScrollState()
+    val deviceSize = LocalUIDeviceSize.current
+    val scrollState = rememberScrollState()
     val productEntity: Product? = productDetailsState.value.product
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
+            .background(color = MaterialTheme.colorScheme.background)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            /*when (deviceSize) {
+            when (deviceSize) {
                 DeviceType.MOBILE_PORTRAIT, DeviceType.TABLET_PORTRAIT -> {
                     Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .verticalScroll(scrollState)
+                        modifier = Modifier.fillMaxSize().verticalScroll(scrollState)
                             .padding(bottom = 100.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
-                    ) {*/
-            ProductImageSection(productEntity)
-            ProductInfoSection(productEntity)
-//                    }
-            /*}
-
-            DeviceType.MOBILE_LANDSCAPE, DeviceType.TABLET_LANDSCAPE -> {
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp)
-                        .verticalScroll(scrollState),
-                    horizontalArrangement = Arrangement.spacedBy(24.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(vertical = 16.dp)
                     ) {
                         ProductImageSection(productEntity)
-                    }
-
-                    Column(
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(vertical = 16.dp)
-                    ) {
                         ProductInfoSection(productEntity)
-                        Spacer(modifier = Modifier.height(24.dp))
-                        AddToCartButton(
-                            productEntity,
-                            modifier = Modifier.fillMaxWidth(),
-                            addToCartClick = {
-                                if (productEntity != null) {
-                                    addToCartClick(productEntity)
-                                }
-                            },
-                            onQuantityChange = onQuantityChange
-                        )
+                    }
+                }
+
+                DeviceType.MOBILE_LANDSCAPE, DeviceType.TABLET_LANDSCAPE -> {
+                    Row(
+                        modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp)
+                            .verticalScroll(scrollState),
+                        horizontalArrangement = Arrangement.spacedBy(24.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier.weight(1f).padding(vertical = 16.dp)
+                        ) {
+                            ProductImageSection(productEntity)
+                        }
+
+                        Column(
+                            modifier = Modifier.weight(1f).padding(vertical = 16.dp)
+                        ) {
+                            ProductInfoSection(productEntity)
+                            Spacer(modifier = Modifier.height(24.dp))
+                            AddToCartButton(
+                                productEntity,
+                                modifier = Modifier.fillMaxWidth(),
+                                addToCartClick = {
+                                    if (productEntity != null) {
+                                        addToCartClick(productEntity)
+                                    }
+                                },
+                                onQuantityChange = onQuantityChange
+                            )
+                        }
                     }
                 }
             }
-        }*/
         }
 
-        BottomActionCard(productEntity, addToCartClick = {
-            if (productEntity != null) {
-                addToCartClick(productEntity)
-            }
-        }, onQuantityChange)
-        /*if (deviceSize == DeviceType.MOBILE_PORTRAIT || deviceSize == DeviceType.TABLET_PORTRAIT) {
-            //place bottom action card here
-        }*/
+        if (deviceSize == DeviceType.MOBILE_PORTRAIT || deviceSize == DeviceType.TABLET_PORTRAIT) {
+            BottomActionCard(productEntity, addToCartClick = {
+                if (productEntity != null) {
+                    addToCartClick(productEntity)
+                }
+            }, onQuantityChange)
+        }
     }
 }
 
@@ -204,7 +200,6 @@ fun BoxScope.BottomActionCard(
             .height(100.dp)
             .align(Alignment.BottomCenter),
         shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

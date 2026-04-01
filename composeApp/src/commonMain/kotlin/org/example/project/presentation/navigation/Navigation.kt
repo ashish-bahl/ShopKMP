@@ -2,7 +2,10 @@ package org.example.project.presentation.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -12,24 +15,25 @@ import org.example.project.presentation.cart.CartScreen
 import org.example.project.presentation.landing.LandingScreen
 import org.example.project.presentation.productdetails.ProductDetailsScreen
 import org.example.project.presentation.productlist.ProductListingScreen
+import org.example.project.presentation.utils.DeviceSizeConfiguration
+import org.example.project.presentation.utils.DeviceType
 
-/*val LocalUIDeviceSize = staticCompositionLocalOf<DeviceType> {
+val LocalUIDeviceSize = staticCompositionLocalOf<DeviceType> {
     error("UiDeviceBucket not provided")
-}*/
-
+}
 
 @Composable
 fun AppNavigation(
     navController: NavHostController,
-//    windowSizeClass: WindowSizeClass,
+    windowSizeClass: WindowSizeClass,
     innerPadding: PaddingValues,
 ) {
 
-    /*val uiDeviceClassifier = DeviceSizeConfiguration.classify(
+    val uiDeviceClassifier = DeviceSizeConfiguration.classify(
         windowSizeClass.widthSizeClass, windowSizeClass.heightSizeClass
-    )*/
+    )
 
-//    CompositionLocalProvider(LocalUIDeviceSize provides uiDeviceClassifier) {
+    CompositionLocalProvider(LocalUIDeviceSize provides uiDeviceClassifier) {
         NavHost(
             navController = navController,
             startDestination = NavigationRoutes.LandingRoute,
@@ -62,5 +66,5 @@ fun AppNavigation(
             }*/
 
         }
-//    }
+    }
 }

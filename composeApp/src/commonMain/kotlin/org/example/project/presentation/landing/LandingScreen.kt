@@ -24,7 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import org.example.project.data.source.dummyProducts
 import org.example.project.domain.model.Product
+import org.example.project.presentation.navigation.LocalUIDeviceSize
 import org.example.project.presentation.navigation.NavigationRoutes
+import org.example.project.presentation.utils.DeviceType
 import org.example.project.presentation.utils.ProductListingCard
 import org.jetbrains.compose.resources.stringResource
 import shopkmp.composeapp.generated.resources.Res
@@ -36,92 +38,84 @@ import shopkmp.composeapp.generated.resources.welcome_msg
 @Composable
 fun LandingScreen(navController: NavController) {
     val scrollState = rememberScrollState()
-//    val deviceSize = LocalUIDeviceSize.current
+    val deviceSize = LocalUIDeviceSize.current
 
-    Column(
-        modifier = Modifier
-            .background(color = MaterialTheme.colorScheme.background)
-            .verticalScroll(scrollState)
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
-        WelcomeSection(onStartShopping = {
-                navController.navigate(NavigationRoutes.ProductListingRoute)
-        })
+    when (deviceSize) {
+        DeviceType.MOBILE_PORTRAIT, DeviceType.TABLET_PORTRAIT -> {
+            Column(
+                modifier = Modifier
+                    .background(color = MaterialTheme.colorScheme.background)
+                    .verticalScroll(scrollState)
+                    .fillMaxSize().padding(16.dp),
+                horizontalAlignment = Alignment.Start
+            ) {
+                WelcomeSection(onStartShopping = {
+                    navController.navigate(NavigationRoutes.ProductListingRoute)
+                })
 
-        Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(32.dp))
 
-        Text(
-            text = stringResource(Res.string.featured_products),
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.SemiBold
-        )
+                Text(
+                    text = stringResource(Res.string.featured_products),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.SemiBold
+                )
 
-        Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-        val featuredProducts = dummyProducts.take(4)
-        StaticVerticalGrid(items = featuredProducts, onProductClick = { productEntity ->
-                navController.navigate(NavigationRoutes.ProductDetailsRoute(productEntity.id))
-        })
-
-
-        /*
-        Column(
-            modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.background)
-                .fillMaxSize()
-        ) {
-
-        }
-        when (deviceSize) {
-            DeviceType.MOBILE_PORTRAIT, DeviceType.TABLET_PORTRAIT -> {
-
+                val featuredProducts = dummyProducts.take(4)
+                StaticVerticalGrid(items = featuredProducts, onProductClick = { productEntity ->
+                    navController.navigate(NavigationRoutes.ProductDetailsRoute(productEntity.id))
+                })
             }
+        }
 
-            DeviceType.MOBILE_LANDSCAPE, DeviceType.TABLET_LANDSCAPE -> {
-                Row(
+        DeviceType.MOBILE_LANDSCAPE, DeviceType.TABLET_LANDSCAPE -> {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp)
+                    .verticalScroll(scrollState),
+                horizontalArrangement = Arrangement.spacedBy(24.dp)
+            ) {
+                Column(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp)
-                        .verticalScroll(scrollState),
-                    horizontalArrangement = Arrangement.spacedBy(24.dp)
+                        .weight(1f)
+                        .padding(vertical = 16.dp)
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(vertical = 16.dp)
-                    ) {
-                        WelcomeSection(onStartShopping = {
-                            navController.navigate(NavigationRoutes.ProductListingRoute)
-                        })
-                    }
+                    WelcomeSection(onStartShopping = {
+                        navController.navigate(NavigationRoutes.ProductListingRoute)
+                    })
+                }
 
-                    Column(
-                        modifier = Modifier
-                            .weight(1.5f)
-                            .padding(vertical = 16.dp)
-                    ) {
-                        Text(
-                            text = stringResource(Res.string.featured_products),
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.SemiBold
-                        )
+                Column(
+                    modifier = Modifier
+                        .weight(1.5f)
+                        .padding(vertical = 16.dp)
+                ) {
+                    Text(
+                        text = stringResource(Res.string.featured_products),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.SemiBold
+                    )
 
-                        Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                        val featuredProducts = dummyProducts.take(4)
-                        StaticVerticalGrid(
-                            items = featuredProducts,
-                            columns = 2,
-                            onProductClick = { productEntity ->
-                                navController.navigate(NavigationRoutes.ProductDetailsRoute(productEntity.id))
-                            }
-                        )
-                    }
+                    val featuredProducts = dummyProducts.take(4)
+                    StaticVerticalGrid(
+                        items = featuredProducts,
+                        columns = 2,
+                        onProductClick = { productEntity ->
+                            navController.navigate(
+                                NavigationRoutes.ProductDetailsRoute(
+                                    productEntity.id
+                                )
+                            )
+                        }
+                    )
                 }
             }
-        }*/
+        }
     }
 }
 

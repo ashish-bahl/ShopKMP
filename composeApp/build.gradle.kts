@@ -64,6 +64,7 @@ kotlin {
             api(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.composeVM)
+            implementation(libs.material3.window.size.class1)
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)
