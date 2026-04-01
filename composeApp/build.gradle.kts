@@ -38,6 +38,8 @@ kotlin {
 
             implementation(libs.ktor.client.okhttp)
             implementation(libs.coil.network.okhttp)
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -59,6 +61,9 @@ kotlin {
             implementation(libs.material.icons.core)
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.composeVM)
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)

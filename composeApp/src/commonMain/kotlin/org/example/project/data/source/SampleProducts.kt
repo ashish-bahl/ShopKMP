@@ -10,7 +10,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 8999.0,
         sellingPrice = 4500.0,
-        imageUrl = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+        imageUrl = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800",
     ),
     Product(
         id = "2",
@@ -19,7 +19,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 4999.0,
         sellingPrice = 2500.0,
-        imageUrl = "https://images.unsplash.com/photo-1595225476474-87563907a212",
+        imageUrl = "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800",
     ),
     Product(
         id = "3",
@@ -28,7 +28,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 5499.0,
         sellingPrice = 3000.0,
-        imageUrl = "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+        imageUrl = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800",
     ),
     Product(
         id = "4",
@@ -37,7 +37,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 999.0,
         sellingPrice = 450.0,
-        imageUrl = "https://images.unsplash.com/photo-1627123424574-724758594e93",
+        imageUrl = "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=800",
     ),
     Product(
         id = "5",
@@ -46,7 +46,7 @@ val dummyProducts = listOf(
         quantity = 12,
         costPrice = 2499.0,
         sellingPrice = 1200.0,
-        imageUrl = "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf",
+        imageUrl = "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800",
     ),
     Product(
         id = "6",
@@ -55,7 +55,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 799.0,
         sellingPrice = 350.0,
-        imageUrl = "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd",
+        imageUrl = "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=800",
     ),
     Product(
         id = "7",
@@ -64,7 +64,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 34999.0,
         sellingPrice = 25000.0,
-        imageUrl = "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf",
+        imageUrl = "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800",
     ),
     Product(
         id = "8",
@@ -73,7 +73,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 12999.0,
         sellingPrice = 8000.0,
-        imageUrl = "https://images.unsplash.com/photo-1505797149-43b0069ec26b",
+        imageUrl = "https://images.unsplash.com/photo-1505797149-43b0069ec26b?q=80&w=800",
     ),
     Product(
         id = "9",
@@ -82,7 +82,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 2199.0,
         sellingPrice = 1200.0,
-        imageUrl = "https://images.unsplash.com/photo-1585338107529-13afc5f02586",
+        imageUrl = "https://images.unsplash.com/photo-1585338107529-13afc5f02586?q=80&w=800",
     ),
     Product(
         id = "10",
@@ -91,7 +91,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 1499.0,
         sellingPrice = 600.0,
-        imageUrl = "https://images.unsplash.com/photo-1622445275463-afa2ab738c34",
+        imageUrl = "https://images.unsplash.com/photo-1622445275463-afa2ab738c34?q=80&w=800",
     ),
     Product(
         id = "11",
@@ -100,7 +100,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 1799.0,
         sellingPrice = 800.0,
-        imageUrl = "https://images.unsplash.com/photo-1531297484001-80022131f5a1",
+        imageUrl = "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=800",
     ),
     Product(
         id = "12",
@@ -109,7 +109,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 3999.0,
         sellingPrice = 2200.0,
-        imageUrl = "https://images.unsplash.com/photo-1608156639585-b3a032ef9689",
+        imageUrl = "https://images.unsplash.com/photo-1608156639585-b3a032ef9689?q=80&w=800",
     ),
     Product(
         id = "13",
@@ -118,7 +118,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 3299.0,
         sellingPrice = 1800.0,
-        imageUrl = "https://images.unsplash.com/photo-1629429408209-1f912961dbd8",
+        imageUrl = "https://images.unsplash.com/photo-1629429408209-1f912961dbd8?q=80&w=800",
     ),
     Product(
         id = "14",
@@ -127,7 +127,7 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 2499.0,
         sellingPrice = 1100.0,
-        imageUrl = "https://images.unsplash.com/photo-1534073828943-f801091bb18c",
+        imageUrl = "https://images.unsplash.com/photo-1534073828943-f801091bb18c?q=80&w=800",
     ),
     Product(
         id = "15",
@@ -136,6 +136,6 @@ val dummyProducts = listOf(
         quantity = 0,
         costPrice = 2999.0,
         sellingPrice = 1500.0,
-        imageUrl = "https://images.unsplash.com/photo-1553062407-98eeb64c6a62",
+        imageUrl = "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800",
     ),
 )

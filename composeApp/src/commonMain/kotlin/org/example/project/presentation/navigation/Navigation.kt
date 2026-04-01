@@ -9,7 +9,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import org.example.project.presentation.cart.CartScreen
-import org.example.project.data.local.dao.StorefrontDao
 import org.example.project.presentation.landing.LandingScreen
 import org.example.project.presentation.productdetails.ProductDetailsScreen
 import org.example.project.presentation.productlist.ProductListingScreen
@@ -24,7 +23,6 @@ fun AppNavigation(
     navController: NavHostController,
 //    windowSizeClass: WindowSizeClass,
     innerPadding: PaddingValues,
-    dao: StorefrontDao
 ) {
 
     /*val uiDeviceClassifier = DeviceSizeConfiguration.classify(
@@ -48,11 +46,11 @@ fun AppNavigation(
 
             composable<NavigationRoutes.ProductDetailsRoute> {
                 val properties = it.toRoute<NavigationRoutes.ProductDetailsRoute>()
-                ProductDetailsScreen(properties.id, dao)
+                ProductDetailsScreen(properties.id)
             }
 
             composable<NavigationRoutes.CartRoute> {
-                CartScreen(dao)
+                CartScreen()
             }
             /*composable<NavigationRoutes.CheckoutRoute> {
                 CheckoutScreen(navController)

@@ -1,9 +1,9 @@
 package org.example.project.domain.usecase.cart
 
-import org.example.project.domain.repository.CartRepository
+import org.example.project.domain.repository.CartLocalDataSource
 
 class ClearCartUseCase(
-    private val cartRepository: CartRepository,
+    private val cartLocalDataSource: CartLocalDataSource,
 ) {
-    suspend operator fun invoke() = cartRepository.clear()
+    suspend operator fun invoke() = cartLocalDataSource.clear()
 }

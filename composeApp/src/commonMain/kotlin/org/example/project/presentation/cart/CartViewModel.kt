@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.project.domain.model.Product
-import org.example.project.domain.repository.CartRepository
+import org.example.project.domain.repository.CartLocalDataSource
 
 class CartViewModel (
-    private val cartRepo: CartRepository
+    private val cartRepo: CartLocalDataSource
 ) : ViewModel() {
 
     private val _cartUiState = MutableStateFlow(CartUiState())

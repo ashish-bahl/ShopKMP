@@ -33,7 +33,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,22 +43,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import org.example.project.data.local.dao.StorefrontDao
-import org.example.project.data.repository.DefaultCartRepository
 import org.example.project.domain.model.Product
 import org.example.project.presentation.utils.formatAmount
 import org.example.project.presentation.utils.prependRupeeSymbol
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.viewmodel.koinViewModel
 import shopkmp.composeapp.generated.resources.Res
 import shopkmp.composeapp.generated.resources.compose_multiplatform
 
 @Composable
-fun CartScreen(
-    dao: StorefrontDao
-) {
-    val cartViewModel = remember {
-        CartViewModel(cartRepo = DefaultCartRepository(dao))
-    }
+fun CartScreen() {
+    val cartViewModel = koinViewModel<CartViewModel>()
 
     val state by cartViewModel.cartUiState.collectAsStateWithLifecycle()
 

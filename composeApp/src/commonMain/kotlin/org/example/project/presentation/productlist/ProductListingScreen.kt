@@ -18,18 +18,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import org.example.project.data.repository.InMemoryProductCatalogRepository
-import org.example.project.domain.usecase.product.LoadProductsUseCase
 import org.example.project.presentation.navigation.NavigationRoutes
 import org.example.project.presentation.utils.ProductListingCard
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 import shopkmp.composeapp.generated.resources.Res
 import shopkmp.composeapp.generated.resources.error_occurred
 import shopkmp.composeapp.generated.resources.no_products_found
@@ -39,9 +37,7 @@ import shopkmp.composeapp.generated.resources.retry
 fun ProductListingScreen(
     navController: NavController,
 ) {
-    val productListingViewModel = remember {
-        ProductListingViewModel(LoadProductsUseCase(productCatalogRepository = InMemoryProductCatalogRepository()))
-    }
+    val productListingViewModel = koinViewModel<ProductListingViewModel>()
 
     val state by productListingViewModel.productListingUiState.collectAsStateWithLifecycle()
 //    val deviceType = LocalUIDeviceSize.current

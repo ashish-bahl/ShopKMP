@@ -1,9 +1,9 @@
 package org.example.project.domain.usecase.cart
 
-import org.example.project.domain.repository.CartRepository
+import org.example.project.domain.repository.CartLocalDataSource
 
 class ObserveCartItemsUseCase(
-    private val cartRepository: CartRepository,
+    private val cartLocalDataSource: CartLocalDataSource,
 ) {
-    operator fun invoke() = cartRepository.observeCartItems()
+    operator fun invoke() = cartLocalDataSource.observeCartItems()
 }

@@ -21,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,36 +30,22 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import org.example.project.data.local.dao.StorefrontDao
-import org.example.project.data.repository.DefaultCartRepository
 import org.example.project.domain.model.Product
-import org.example.project.domain.usecase.cart.AddToCartUseCase
-import org.example.project.domain.usecase.cart.GetCartItemUseCase
-import org.example.project.domain.usecase.cart.RemoveFromCartUseCase
-import org.example.project.domain.usecase.cart.UpdateCartItemUseCase
 import org.example.project.presentation.utils.QuantityStepper
 import org.example.project.presentation.utils.prependRupeeSymbol
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 import shopkmp.composeapp.generated.resources.Res
 import shopkmp.composeapp.generated.resources.add_to_cart
 import shopkmp.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 fun ProductDetailsScreen(
-    id: String,
-    dao: StorefrontDao
+    id: String
 ) {
 
-    val repository = DefaultCartRepository(dao)
-    val viewModel: ProductDetailsViewModel = remember {
-        ProductDetailsViewModel(
-            addToCartUseCase = AddToCartUseCase(repository),
-            getCartProductUseCase = GetCartItemUseCase(repository),
-            updateCartUseCase = UpdateCartItemUseCase(repository),
-            deleteFromCartUseCase = RemoveFromCartUseCase(repository)
-        )
-    }
+    val viewModel = koinViewModel<ProductDetailsViewModel>()
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(ProductDetailsEvent.LoadProduct(id))
