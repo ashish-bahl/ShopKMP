@@ -39,6 +39,7 @@ import shopkmp.composeapp.generated.resources.welcome_msg
 fun LandingScreen(navController: NavController) {
     val scrollState = rememberScrollState()
     val deviceSize = LocalUIDeviceSize.current
+    val featuredProducts = dummyProducts.take(4)
 
     when (deviceSize) {
         DeviceType.MOBILE_PORTRAIT, DeviceType.TABLET_PORTRAIT -> {
@@ -63,7 +64,6 @@ fun LandingScreen(navController: NavController) {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                val featuredProducts = dummyProducts.take(4)
                 StaticVerticalGrid(items = featuredProducts, onProductClick = { productEntity ->
                     navController.navigate(NavigationRoutes.ProductDetailsRoute(productEntity.id))
                 })
@@ -101,7 +101,6 @@ fun LandingScreen(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    val featuredProducts = dummyProducts.take(4)
                     StaticVerticalGrid(
                         items = featuredProducts,
                         columns = 2,

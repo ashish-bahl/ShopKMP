@@ -1,7 +1,10 @@
 package org.example.project.di
 
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.HttpClientEngineFactory
 import org.example.project.data.repository.CartLocalDataSourceImpl
-import org.example.project.data.repository.InMemoryProductCatalogRepository
+import org.example.project.data.remote.createHttpClient
+import org.example.project.data.repository.ApiProductCatalogRepository
 import org.example.project.domain.repository.CartLocalDataSource
 import org.example.project.domain.repository.ProductCatalogRepository
 import org.example.project.domain.usecase.cart.AddToCartUseCase
@@ -29,6 +32,7 @@ fun initKoin(config: KoinAppDeclaration? = null) =
             platformModule(),
             provideRepositoryModule,
             provideDataSourceModule,
+            provideNetworkModule,
             provideUseCaseModule,
             provideViewModelModule
         )
@@ -38,8 +42,12 @@ val provideDataSourceModule = module {
     singleOf(::CartLocalDataSourceImpl).bind(CartLocalDataSource::class)
 }
 
+val provideNetworkModule = module {
+    single<HttpClient> { createHttpClient(get<HttpClientEngineFactory<*>>()) }
+}
+
 val provideRepositoryModule = module {
-    singleOf(::InMemoryProductCatalogRepository).bind(ProductCatalogRepository::class)
+    singleOf(::ApiProductCatalogRepository).bind(ProductCatalogRepository::class)
 }
 
 val provideUseCaseModule = module {
