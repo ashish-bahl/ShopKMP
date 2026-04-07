@@ -21,21 +21,21 @@ interface StorefrontDao {
     @Update(onConflict = REPLACE)
     suspend fun updateCartItem(cartItem: CartItemEntity)
 
-    @Query("SELECT * FROM CartItemEntity")
+    @Query("SELECT * FROM cart")
     fun observeCartItems(): Flow<List<CartItemEntity>>
 
-    @Query("SELECT * FROM CartItemEntity WHERE id = :id")
+    @Query("SELECT * FROM cart WHERE id = :id")
     suspend fun getCartItem(id: String): CartItemEntity?
 
-    @Query("DELETE FROM CartItemEntity")
+    @Query("DELETE FROM cart")
     suspend fun clearCart()
 
     @Insert(onConflict = REPLACE)
     suspend fun placeOrder(order: OrderEntity): Long
 
-    @Query("SELECT * FROM OrderEntity")
+    @Query("SELECT * FROM orders")
     fun observeOrders(): Flow<List<OrderEntity>>
 
-    @Query("SELECT * FROM OrderEntity WHERE id = :id")
+    @Query("SELECT * FROM orders WHERE id = :id")
     suspend fun getOrder(id: String): OrderEntity?
 }
