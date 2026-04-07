@@ -7,10 +7,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.project.domain.model.Product
-import org.example.project.domain.repository.CartLocalDataSource
+import org.example.project.domain.usecase.cart.ObserveCartItemsUseCase
+import org.example.project.domain.usecase.cart.RemoveFromCartUseCase
+import org.example.project.domain.usecase.cart.UpdateCartItemUseCase
 
 class CartViewModel (
-    private val cartRepo: CartLocalDataSource
+    val updateCartUseCase: UpdateCartItemUseCase,
+    val deleteFromCartUseCase: RemoveFromCartUseCase,
+    val observeCartItemsUseCase: ObserveCartItemsUseCase,
 ) : ViewModel() {
 
     private val _cartUiState = MutableStateFlow(CartUiState())
@@ -23,7 +27,7 @@ class CartViewModel (
     private fun loadCartItems() {
         viewModelScope.launch {
             _cartUiState.update { it.copy(isLoading = true) }
-            cartRepo.observeCartItems().collect { cartItems ->
+            observeCartItemsUseCase().collect { cartItems ->
                 updateCartState(cartItems)
             }
         }
@@ -32,7 +36,7 @@ class CartViewModel (
     fun incrementQuantity(product: Product) {
         viewModelScope.launch {
             val updatedProduct = product.copy(quantity = product.quantity + 1)
-            cartRepo.update(updatedProduct)
+            updateCartUseCase(updatedProduct)
         }
     }
 
@@ -40,17 +44,17 @@ class CartViewModel (
         viewModelScope.launch {
             if (product.quantity > 1) {
                 val updatedProduct = product.copy(quantity = product.quantity - 1)
-                cartRepo.update(updatedProduct)
+                updateCartUseCase(updatedProduct)
             } else {
                 // Remove item when quantity reaches 0
-                cartRepo.remove(product)
+                deleteFromCartUseCase(product)
             }
         }
     }
 
     fun removeItem(product: Product) {
         viewModelScope.launch {
-            cartRepo.remove(product)
+            deleteFromCartUseCase(product)
         }
     }
 

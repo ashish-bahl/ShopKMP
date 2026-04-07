@@ -5,11 +5,11 @@ import org.example.project.data.local.database.StorefrontDatabase
 import org.example.project.data.local.mapper.toDomainModel
 import org.example.project.data.local.mapper.toLocalEntity
 import org.example.project.domain.model.Product
-import org.example.project.domain.repository.CartLocalDataSource
+import org.example.project.domain.repository.CartRepository
 
-class CartLocalDataSourceImpl(
+class DefaultCartRepository(
     private val storefrontDatabase: StorefrontDatabase,
-) : CartLocalDataSource {
+) : CartRepository {
     override suspend fun add(product: Product) = storefrontDatabase.storefrontDao().addToCart(product.toLocalEntity())
 
     override suspend fun update(product: Product) = storefrontDatabase.storefrontDao().updateCartItem(product.toLocalEntity())

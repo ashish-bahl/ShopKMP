@@ -2,13 +2,14 @@ package org.example.project.di
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngineFactory
-import org.example.project.data.repository.CartLocalDataSourceImpl
+import org.example.project.data.repository.DefaultCartRepository
 import org.example.project.data.remote.createHttpClient
 import org.example.project.data.repository.ApiProductCatalogRepository
-import org.example.project.domain.repository.CartLocalDataSource
+import org.example.project.domain.repository.CartRepository
 import org.example.project.domain.repository.ProductCatalogRepository
 import org.example.project.domain.usecase.cart.AddToCartUseCase
 import org.example.project.domain.usecase.cart.GetCartItemUseCase
+import org.example.project.domain.usecase.cart.ObserveCartItemsUseCase
 import org.example.project.domain.usecase.cart.RemoveFromCartUseCase
 import org.example.project.domain.usecase.cart.UpdateCartItemUseCase
 import org.example.project.domain.usecase.product.LoadProductsUseCase
@@ -31,16 +32,12 @@ fun initKoin(config: KoinAppDeclaration? = null) =
         modules(
             platformModule(),
             provideRepositoryModule,
-            provideDataSourceModule,
             provideNetworkModule,
             provideUseCaseModule,
             provideViewModelModule
         )
     }
 
-val provideDataSourceModule = module {
-    singleOf(::CartLocalDataSourceImpl).bind(CartLocalDataSource::class)
-}
 
 val provideNetworkModule = module {
     single<HttpClient> { createHttpClient(get<HttpClientEngineFactory<*>>()) }
@@ -48,6 +45,7 @@ val provideNetworkModule = module {
 
 val provideRepositoryModule = module {
     singleOf(::ApiProductCatalogRepository).bind(ProductCatalogRepository::class)
+    singleOf(::DefaultCartRepository).bind(CartRepository::class)
 }
 
 val provideUseCaseModule = module {
@@ -56,6 +54,7 @@ val provideUseCaseModule = module {
     singleOf(::UpdateCartItemUseCase)
     singleOf(::RemoveFromCartUseCase)
     singleOf(::GetCartItemUseCase)
+    singleOf(::ObserveCartItemsUseCase)
 }
 
 val provideViewModelModule = module {
