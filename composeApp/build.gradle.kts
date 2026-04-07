@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -28,8 +27,6 @@ kotlin {
             isStatic = true
         }
     }
-    
-    jvm()
     
     sourceSets {
         androidMain.dependencies {
@@ -72,14 +69,6 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutinesSwing)
-            implementation(libs.oshi.core)
-
-            implementation(libs.ktor.client.okhttp)
-            implementation(libs.coil.network.okhttp)
-        }
     }
 }
 
@@ -87,7 +76,6 @@ dependencies {
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspIosArm64", libs.androidx.room.compiler)
     add("kspIosSimulatorArm64", libs.androidx.room.compiler)
-    add("kspJvm", libs.androidx.room.compiler)
     debugImplementation(libs.compose.uiTooling)
 }
 
@@ -126,14 +114,3 @@ room {
     schemaDirectory("$projectDir/schemas")
 }
 
-compose.desktop {
-    application {
-        mainClass = "org.example.project.MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "org.example.project"
-            packageVersion = "1.0.0"
-        }
-    }
-}

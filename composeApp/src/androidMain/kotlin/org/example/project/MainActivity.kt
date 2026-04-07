@@ -10,7 +10,7 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.storefront.ui.theme.MyApplicationTheme
+import org.example.project.theme.MyApplicationTheme
 import org.example.project.presentation.navigation.AppNavigation
 import org.example.project.presentation.utils.MyTopAppBar
 
@@ -35,9 +35,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-/*
-@Preview
-@Composable
-fun AppAndroidPreview() {
-    App()
-}*/
