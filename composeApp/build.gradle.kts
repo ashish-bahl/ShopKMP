@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -8,6 +10,28 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.androidx.room)
+    alias(libs.plugins.buildkonfig)
+}
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.projectDir.resolve("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
+
+val mockApiProjectSecret: String = localProperties.getProperty("mockApiProjectSecret")
+
+buildkonfig {
+    packageName = "org.example.project"
+    objectName = "ShopKMPConfig"
+    
+    defaultConfigs {
+        // Reads from System Env first, then local properties, then empty string
+        val secret = System.getenv("MOCK_API_SECRET")
+            ?: mockApiProjectSecret
+            ?: ""
+        buildConfigField(STRING, "MOCK_API_SECRET", secret)
+    }
 }
 
 kotlin {
@@ -112,4 +136,3 @@ ksp {
 room {
     schemaDirectory("$projectDir/schemas")
 }
-
