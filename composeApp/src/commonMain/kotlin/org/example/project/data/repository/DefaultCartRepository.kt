@@ -10,16 +10,18 @@ import org.example.project.domain.repository.CartRepository
 class DefaultCartRepository(
     private val storefrontDatabase: StorefrontDatabase,
 ) : CartRepository {
-    override suspend fun add(product: Product) = storefrontDatabase.storefrontDao().addToCart(product.toLocalEntity())
+    private val dao = storefrontDatabase.storefrontDao()
 
-    override suspend fun update(product: Product) = storefrontDatabase.storefrontDao().updateCartItem(product.toLocalEntity())
+    override suspend fun add(product: Product) = dao.addToCart(product.toLocalEntity())
 
-    override suspend fun remove(product: Product) = storefrontDatabase.storefrontDao().removeFromCart(product.toLocalEntity())
+    override suspend fun update(product: Product) = dao.updateCartItem(product.toLocalEntity())
 
-    override fun observeCartItems() = storefrontDatabase.storefrontDao().observeCartItems()
+    override suspend fun remove(product: Product) = dao.removeFromCart(product.toLocalEntity())
+
+    override fun observeCartItems() = dao.observeCartItems()
         .map { items -> items.map { it.toDomainModel() } }
 
-    override suspend fun getCartItem(id: String) = storefrontDatabase.storefrontDao().getCartItem(id)?.toDomainModel()
+    override suspend fun getCartItem(id: String) = dao.getCartItem(id)?.toDomainModel()
 
-    override suspend fun clear() = storefrontDatabase.storefrontDao().clearCart()
+    override suspend fun clear() = dao.clearCart()
 }

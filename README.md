@@ -6,7 +6,7 @@ ShopKMP is a modern, cross-platform e-commerce application built using **Kotlin 
 
 - Product catalog browsing is working.
 - Cart flow is available.
-- Order and checkout flow is in progress.
+- Order and checkout flow is complete.
 - Offline-first architecture is in progress.
 
 ## Tech Stack

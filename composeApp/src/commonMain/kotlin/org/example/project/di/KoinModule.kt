@@ -5,7 +5,9 @@ import io.ktor.client.engine.HttpClientEngineFactory
 import org.example.project.data.remote.createHttpClient
 import org.example.project.data.repository.ApiProductCatalogRepository
 import org.example.project.data.repository.DefaultCartRepository
+import org.example.project.data.repository.DefaultOrderRepository
 import org.example.project.domain.repository.CartRepository
+import org.example.project.domain.repository.OrderRepository
 import org.example.project.domain.repository.ProductCatalogRepository
 import org.example.project.domain.usecase.cart.AddToCartUseCase
 import org.example.project.domain.usecase.cart.ClearCartUseCase
@@ -13,9 +15,14 @@ import org.example.project.domain.usecase.cart.GetCartItemUseCase
 import org.example.project.domain.usecase.cart.ObserveCartItemsUseCase
 import org.example.project.domain.usecase.cart.RemoveFromCartUseCase
 import org.example.project.domain.usecase.cart.UpdateCartItemUseCase
+import org.example.project.domain.usecase.order.AddToOrderUseCase
+import org.example.project.domain.usecase.order.GetOrderUseCase
+import org.example.project.domain.usecase.order.ObserveOrdersUseCase
 import org.example.project.domain.usecase.product.LoadProductsUseCase
 import org.example.project.presentation.core.MainViewModel
 import org.example.project.presentation.cart.CartViewModel
+import org.example.project.presentation.order.checkout.CheckoutViewModel
+import org.example.project.presentation.order.summary.OrderSummaryViewModel
 import org.example.project.presentation.productdetails.ProductDetailsViewModel
 import org.example.project.presentation.productlist.ProductListingViewModel
 import org.koin.core.context.startKoin
@@ -48,6 +55,7 @@ val provideNetworkModule = module {
 val provideRepositoryModule = module {
     singleOf(::ApiProductCatalogRepository).bind(ProductCatalogRepository::class)
     singleOf(::DefaultCartRepository).bind(CartRepository::class)
+    singleOf(::DefaultOrderRepository).bind(OrderRepository::class)
 }
 
 val provideUseCaseModule = module {
@@ -58,6 +66,9 @@ val provideUseCaseModule = module {
     singleOf(::GetCartItemUseCase)
     singleOf(::ObserveCartItemsUseCase)
     singleOf(::ClearCartUseCase)
+    singleOf(::AddToOrderUseCase)
+    singleOf(::GetOrderUseCase)
+    singleOf(::ObserveOrdersUseCase)
 }
 
 val provideViewModelModule = module {
@@ -65,4 +76,6 @@ val provideViewModelModule = module {
     viewModelOf(::ProductListingViewModel)
     viewModelOf(::CartViewModel)
     viewModelOf(::MainViewModel)
+    viewModelOf(::CheckoutViewModel)
+    viewModelOf(::OrderSummaryViewModel)
 }

@@ -13,6 +13,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import org.example.project.presentation.cart.CartScreen
 import org.example.project.presentation.landing.LandingScreen
+import org.example.project.presentation.order.checkout.CheckoutScreen
+import org.example.project.presentation.order.summary.OrderSummaryScreen
 import org.example.project.presentation.productdetails.ProductDetailsScreen
 import org.example.project.presentation.productlist.ProductListingScreen
 import org.example.project.presentation.utils.DeviceSizeConfiguration
@@ -54,16 +56,16 @@ fun AppNavigation(
             }
 
             composable<NavigationRoutes.CartRoute> {
-                CartScreen()
+                CartScreen(navController)
             }
-            /*composable<NavigationRoutes.CheckoutRoute> {
+            composable<NavigationRoutes.CheckoutRoute> {
                 CheckoutScreen(navController)
             }
 
             composable<NavigationRoutes.OrderSummaryRoute> {
                 val properties = it.toRoute<NavigationRoutes.OrderSummaryRoute>()
                 OrderSummaryScreen(navController,properties.id)
-            }*/
+            }
 
         }
     }

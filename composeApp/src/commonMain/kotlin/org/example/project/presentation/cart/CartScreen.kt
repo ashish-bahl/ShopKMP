@@ -42,17 +42,30 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import org.example.project.domain.model.Product
+import org.example.project.presentation.navigation.NavigationRoutes
 import org.example.project.presentation.utils.formatAmount
 import org.example.project.presentation.utils.prependRupeeSymbol
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import shopkmp.composeapp.generated.resources.Res
+import shopkmp.composeapp.generated.resources.add_products_to_cart
 import shopkmp.composeapp.generated.resources.compose_multiplatform
+import shopkmp.composeapp.generated.resources.cart_empty
+import shopkmp.composeapp.generated.resources.decrease_quantity
+import shopkmp.composeapp.generated.resources.increase_quantity
+import shopkmp.composeapp.generated.resources.place_order
+import shopkmp.composeapp.generated.resources.remove_item
+import shopkmp.composeapp.generated.resources.total_amount
+import shopkmp.composeapp.generated.resources.total_items
 
 @Composable
-fun CartScreen() {
+fun CartScreen(
+    navController: NavHostController
+) {
     val cartViewModel = koinViewModel<CartViewModel>()
 
     val state by cartViewModel.cartUiState.collectAsStateWithLifecycle()
@@ -63,7 +76,7 @@ fun CartScreen() {
         onDecrement = cartViewModel::decrementQuantity,
         onRemove = cartViewModel::removeItem,
         onPlaceOrder = {
-//            navController.navigate(NavigationRoutes.CheckoutRoute)
+            navController.navigate(NavigationRoutes.CheckoutRoute)
         }
     )
 }
@@ -129,13 +142,13 @@ fun EmptyCartView(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Your cart is empty",
+                text = stringResource(Res.string.cart_empty),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Add some products to your cart",
+                text = stringResource(Res.string.add_products_to_cart),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -218,7 +231,7 @@ fun CartItemCard(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Delete,
-                            contentDescription = "Decrease quantity",
+                            contentDescription = stringResource(Res.string.decrease_quantity),
                             modifier = Modifier.size(18.dp)
                         )
                     }
@@ -244,7 +257,7 @@ fun CartItemCard(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Add,
-                            contentDescription = "Increase quantity",
+                            contentDescription = stringResource(Res.string.increase_quantity),
                             modifier = Modifier.size(18.dp)
                         )
                     }
@@ -255,7 +268,7 @@ fun CartItemCard(
             IconButton(onClick = onRemove) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Remove item",
+                    contentDescription = stringResource(Res.string.remove_item),
                     tint = MaterialTheme.colorScheme.error
                 )
             }
@@ -283,7 +296,7 @@ fun CartBottomSection(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Total Items",
+                    text = stringResource(Res.string.total_items),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -307,7 +320,7 @@ fun CartBottomSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Total Amount",
+                    text = stringResource(Res.string.total_amount),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -333,7 +346,7 @@ fun CartBottomSection(
                 )
             ) {
                 Text(
-                    text = "Place Order",
+                    text = stringResource(Res.string.place_order),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.inverseOnSurface
                 )
