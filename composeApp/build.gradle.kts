@@ -19,7 +19,7 @@ if (localPropertiesFile.exists()) {
     localProperties.load(localPropertiesFile.inputStream())
 }
 
-val mockApiProjectSecret: String = localProperties.getProperty("mockApiProjectSecret")
+val mockApiProjectSecret: String = localProperties.getProperty("mockApiProjectSecret") ?: ""
 
 buildkonfig {
     packageName = "org.example.project"
@@ -29,7 +29,6 @@ buildkonfig {
         // Reads from System Env first, then local properties, then empty string
         val secret = System.getenv("MOCK_API_SECRET")
             ?: mockApiProjectSecret
-            ?: ""
         buildConfigField(STRING, "MOCK_API_SECRET", secret)
     }
 }
